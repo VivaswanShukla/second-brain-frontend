@@ -1,11 +1,11 @@
+import type { ReactElement } from "react";
 
 export interface ButtonProps {
     variant: "primary" | "secondary",
-    size: "sm" | "md" | "lg",
     text: string,
-    startIcon?: any,
-    endIcon?: any,
-    onClick: () => void
+    startIcon?: ReactElement,
+    onClick?: () => void,
+    fullWidth?: boolean
 }
 
 const variantStyles = {
@@ -13,14 +13,16 @@ const variantStyles = {
     secondary: "bg-purple-300 text-purple-600"
 }
 
-const defaultStyles = "rounded-md";
+const defaultStyles = "px-4 py-2 rounded-md font-light";
 
-const sizeStyles = {
-    sm: "py-1 px-2",
-    md: "py-2 px-4",
-    lg: "py-4 px-6",
-}
 
 export const Button = (props: ButtonProps) => {
-    return <button className={`${variantStyles[props.variant]} ${defaultStyles} ${sizeStyles[props.size]} `} >{props.startIcon}  {props.text} {props.endIcon}</button>
+    return <button onClick={props.onClick} className={`${variantStyles[props.variant]} ${defaultStyles} m-2 ${props.fullWidth ? " w-full flex justify-center" : ""} `} >
+        <div className="flex items-center">
+            {props.startIcon}  
+            <div className="pl-1 pr-1">
+                {props.text} 
+            </div>
+        </div>
+        </button>
 }
